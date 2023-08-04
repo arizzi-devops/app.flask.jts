@@ -1,12 +1,18 @@
 from flask import Blueprint, render_template, request, redirect, session, Flask
-import sqlite3
+import mysql.connector
+import os
 
 app = Flask(__name__)
 users = Blueprint('users', __name__)
 
 def get_db_connection():
-    conn = sqlite3.connect('database.db')
-    conn.row_factory = sqlite3.Row
+    mysql_config = {
+        'host': os.environ.get('DB_HOST'),
+        'user': os.environ.get('DB_USER'),
+        'password': os.environ.get('DB_PASS'),
+        'database': os.environ.get('DB_NAME'),
+    }
+    conn = mysql.connector.connect(**mysql_config)
     return conn
 
 # Register the login check function to be executed before each request
@@ -16,7 +22,9 @@ def user_list():
     if 'username' not in session:
         return redirect('/login')
     conn = get_db_connection()
-    users = conn.execute('SELECT id, username FROM users').fetchall()
+    cursor = conn.cursor(dictionary=True)
+    cursor.execute('SELECT id, username FROM users')
+    users = cursor.fetchall()
     conn.close()
     return render_template('users_list.html', users=users)
 
@@ -31,14 +39,19 @@ def add_user():
         error = False
         try:
             conn = get_db_connection()
-            conn.execute('INSERT INTO users (username, password) VALUES (?, ?)', (username, password))
-            conn.commit()
-        except sqlite3.IntegrityError: # Check if user already exists
-            error = "Username already exists. Please choose a different username."
+            cursor = conn.cursor(dictionary=True)
+            cursor.execute('INSERT INTO users (username, password) VALUES (%s, %s)', (username, password))
+        except mysql.connector.IntegrityError as e: # Check if user already exists
+            error = "Error: Username already exists or constraint violation:"
+            print(error, e)
+        except mysql.connector.Error as e:
+            error = "Error executing query:"
+            print(error, e)
+        conn.commit()
         conn.close()
 
         if error:
-            return render_template('users_form.html', error=error)
+            return render_template('users_form.html', error=error, user={})
         return redirect('/users')
     return render_template('users_form.html', user={})
 
@@ -48,13 +61,16 @@ def edit_user(user_id):
     if 'username' not in session:
         return redirect('/login')
     conn = get_db_connection()
-    user = conn.execute('SELECT * FROM users WHERE id = ?', (user_id,)).fetchone()
+    cursor = conn.cursor(dictionary=True)
+    cursor.execute('SELECT * FROM users WHERE id = %s', (user_id,))
+    user = cursor.fetchone()
 
     if request.method == 'POST':
         new_username = request.form['username']
         new_password = request.form['password']
 
-        conn.execute('UPDATE users SET username = ?, password = ? WHERE id = ?', (new_username, new_password, user_id))
+        print ('UPDATE users SET username = %s, password = %s WHERE id = %s')
+        cursor.execute('UPDATE users SET username = %s, password = %s WHERE id = %s', (new_username, new_password, user_id))
         conn.commit()
         conn.close()
 
@@ -68,7 +84,8 @@ def delete_user(user_id):
     if 'username' not in session:
         return redirect('/login')
     conn = get_db_connection()
-    conn.execute('DELETE FROM users WHERE id = ?', (user_id,))
+    cursor = conn.cursor()
+    cursor.execute('DELETE FROM users WHERE id = %s', (user_id,))
     conn.commit()
     conn.close()
 

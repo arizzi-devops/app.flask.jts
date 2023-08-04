@@ -1,5 +1,4 @@
 from flask import Blueprint, render_template, session, redirect, url_for, request, jsonify
-import sqlite3
 
 jobs_bp = Blueprint("jobs", __name__)
 
