@@ -1,3 +1,4 @@
 jts/database.db
 .venv/
 __pycache__/
+local_sqlite.db
