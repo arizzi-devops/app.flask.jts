@@ -7,5 +7,7 @@ services:
     ports:
       - 5000:5000
     volumes:
-      - ./jts:/app
+      # For living code
+      - ./jts:/app 
+      # To store a db locally
       - ./local_sqlite.db:/app/database.db
