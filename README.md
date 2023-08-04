@@ -47,7 +47,8 @@ The Job Application Tracker is a web application designed to help users track th
 - [x] Implement bootstrap;
 - [x] Move DB to MySQL;
 - [x] Dockerized app
-- [ ] Add user option to activate / deactive account
+- [x] Add user option to activate / deactive account
+  - [ ] session check if login is active;
 - [ ] simplify required login for all others modules;
 - [ ] Implement a module to scrape websites like LinkedIn, Indeed, Glassdoor, etc., and store the job postings in a MongoDB or SQLite database.
 - [ ] Add an archive option in the job edit form to allow users to archive completed or closed job entries.

@@ -16,6 +16,7 @@
             <thead class="thead-dark">
                 <tr>
                 <th class="col-lg-2">Username</th>
+                <th>Active</th>
                 <th>Action</th>
                 </tr>
             </thead>
@@ -23,6 +24,11 @@
                 {% for user in users %}
                     <tr>
                         <td>{{ user['username'] }}</td>
+                        <td>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" {% if user['active'] > 0 %}checked{% endif %} disabled>
+                            </div>
+                        </td>
                         <td>
                             <a href="/users/{{ user['id'] }}/edit" class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i> Edit</a>
                         </td>
