@@ -19,8 +19,8 @@ services:
     image: "mysql:${MYSQL_VERSION_TAG}"
     env_file:
       - jts.env
-    ports:
-      - 3307:3306
+    volumes:
+      - ./data:/var/lib/mysql
     healthcheck:
         test: ["CMD", "mysqladmin", "-u", "${DB_USER}", "--password=${DB_PASS}", "ping"]
         interval: 5s
