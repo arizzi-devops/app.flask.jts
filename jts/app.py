@@ -76,18 +76,5 @@ def logout():
     return redirect('/')
 
 
-# @app.route('/add', methods=['POST'])
-# def add_user():
-#     username = request.form['username']
-#     password = request.form['password']
-
-#     conn = get_db_connection()
-#     conn.execute('INSERT INTO users (username, password) VALUES (?, ?)', (username, password))
-#     conn.commit()
-#     conn.close()
-
-#     return redirect('/')
-
-
 if __name__ == "__main__":
     app.run(debug=True)
