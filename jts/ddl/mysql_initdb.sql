@@ -20,3 +20,6 @@ CREATE TABLE IF NOT EXISTS jobs (
     user_id INTEGER NOT NULL DEFAULT 0
 );
 
+
+-- changeset: 3
+-- ALTER TABLE users ADD COLUMN active BOOLEAN DEFAULT TRUE;
