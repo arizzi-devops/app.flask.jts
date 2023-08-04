@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  jts:
+    image: jts
+    build: 
+      context: jts/
+    env_file:
+      - jts.env
+    ports:
+      - 5000:5000
+    volumes:
+      - ./jts:/app      # For living code uncomment this line
+    depends_on:
+      mysql-db:
+        condition: service_healthy
+
+  mysql-db:
+    image: "mysql:${MYSQL_VERSION_TAG}"
+    env_file:
+      - jts.env
+    ports:
+      - 3307:3306
+    healthcheck:
+        test: ["CMD", "mysqladmin", "-u", "${DB_USER}", "--password=${DB_PASS}", "ping"]
+        interval: 5s
+        retries: 3
+        start_period: 3s
+        timeout: 5s

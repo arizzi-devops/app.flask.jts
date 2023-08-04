@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, session, redirect, url_for, request, jsonify
-import sqlite3
+import mysql.connector
+import os
 
 jobs_bp = Blueprint("jobs", __name__)
 
@@ -7,8 +8,13 @@ statuses = ["New", "Applied", "H.R.", "Tech", "Finished"]
 
 
 def get_db_connection():
-    conn = sqlite3.connect("database.db")
-    conn.row_factory = sqlite3.Row
+    mysql_config = {
+        'host': os.environ.get('DB_HOST'),
+        'user': os.environ.get('DB_USER'),
+        'password': os.environ.get('DB_PASS'),
+        'database': os.environ.get('DB_NAME'),
+    }
+    conn = mysql.connector.connect(**mysql_config)
     return conn
 
 @jobs_bp.route("/jobs")
@@ -18,8 +24,8 @@ def view_jobs():
     user_id = session['user_id']
     print(user_id)
     conn = get_db_connection()
-    cursor = conn.cursor()
-    cursor.execute("SELECT * FROM jobs WHERE user_id = ?", (user_id,))
+    cursor = conn.cursor(dictionary=True)
+    cursor.execute("SELECT * FROM jobs WHERE user_id = %s", (user_id,))
     jobs = cursor.fetchall()
     conn.close()
     return render_template("jobs_list.html", statuses=statuses, jobs=jobs)
@@ -36,9 +42,9 @@ def add_job():
         job_link = request.form["job_link"]
 
         conn = get_db_connection()
-        c = conn.cursor()
+        c = conn.cursor(dictionary=True)
         c.execute(
-            "INSERT INTO jobs (job_title, job_location, job_link, user_id) VALUES (?, ?, ?, ?)",
+            "INSERT INTO jobs (job_title, job_location, job_link, user_id) VALUES (%s, %s, %s, %s)",
             (job_title, job_location, job_link, session['user_id']),
         )
         conn.commit()
@@ -54,7 +60,7 @@ def edit_job(job_id):
     if 'username' not in session:
         return redirect('/login')
     conn = get_db_connection()
-    c = conn.cursor()
+    c = conn.cursor(dictionary=True)
 
     if request.method == "POST":
         job_title = request.form["job_title"]
@@ -63,7 +69,7 @@ def edit_job(job_id):
 
         print("OK")
         c.execute(
-            "UPDATE jobs SET job_title = ?, job_location = ?, job_link = ? WHERE id = ?",
+            "UPDATE jobs SET job_title = %s, job_location = %s, job_link = %s WHERE id = %s",
             (job_title, job_location, job_link, job_id),
         )
         conn.commit()
@@ -71,7 +77,7 @@ def edit_job(job_id):
 
         return redirect(url_for("jobs.view_jobs"))
 
-    c.execute("SELECT * FROM jobs WHERE id = ?", (job_id,))
+    c.execute("SELECT * FROM jobs WHERE id = %s", (job_id,))
     job = c.fetchone()
 
     return render_template("jobs_form.html", job=job)
@@ -83,7 +89,7 @@ def delete_job(job_id):
         return redirect('/login')
     conn = get_db_connection()
     c = conn.cursor()
-    c.execute("DELETE FROM jobs WHERE id = ?", (job_id,))
+    c.execute("DELETE FROM jobs WHERE id = %s", (job_id,))
     conn.commit()
     conn.close()
 
@@ -98,7 +104,7 @@ def update_job_status(job_id):
 
     conn = get_db_connection()
     c = conn.cursor()
-    c.execute("UPDATE jobs SET job_status_id = ? WHERE id = ?", (new_status, job_id))
+    c.execute("UPDATE jobs SET job_status_id = %s WHERE id = %s", (new_status, job_id))
     conn.commit()
     conn.close()
 
