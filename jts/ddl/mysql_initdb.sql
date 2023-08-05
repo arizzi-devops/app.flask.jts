@@ -22,4 +22,5 @@ CREATE TABLE IF NOT EXISTS jobs (
 
 
 -- changeset: 3
+-- commented because was executed, but not controlled by liquibase yet
 -- ALTER TABLE users ADD COLUMN active BOOLEAN DEFAULT TRUE;
