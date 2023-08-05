@@ -23,7 +23,7 @@ def user_list():
         return redirect('/login')
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)
-    cursor.execute('SELECT id, username FROM users')
+    cursor.execute('SELECT id, username, active FROM users')
     users = cursor.fetchall()
     conn.close()
     return render_template('users_list.html', users=users)
@@ -68,6 +68,9 @@ def edit_user(user_id):
     if request.method == 'POST':
         new_username = request.form['username']
         new_password = request.form['password']
+        new_active = 0
+        if "active" in request.form and request.form['active'] == 'on':
+            new_active = 1
 
         print ('UPDATE users SET username = %s, password = %s WHERE id = %s')
         cursor.execute('UPDATE users SET username = %s, password = %s WHERE id = %s', (new_username, new_password, user_id))
