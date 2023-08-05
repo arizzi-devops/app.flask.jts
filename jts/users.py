@@ -72,8 +72,7 @@ def edit_user(user_id):
         if "active" in request.form and request.form['active'] == 'on':
             new_active = 1
 
-        print ('UPDATE users SET username = %s, password = %s WHERE id = %s')
-        cursor.execute('UPDATE users SET username = %s, password = %s WHERE id = %s', (new_username, new_password, user_id))
+        cursor.execute('UPDATE users SET username = %s, password = %s, active = %s WHERE id = %s', (new_username, new_password, new_active, user_id))
         conn.commit()
         conn.close()
 
