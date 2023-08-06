@@ -1,8 +1,4 @@
 # Job Application Tracker
-#### Video Demo:  https://youtu.be/CtAU5nCnBWY
-#### Description:
-
-
 ## Overview
 The Job Application Tracker is a web application designed to help users track their job applications. It provides a Kanban-style interface to manage job statuses and facilitates organizing and monitoring the application process.
 
@@ -23,18 +19,9 @@ The Job Application Tracker is a web application designed to help users track th
   - Update job status with a Kanban board interface
 
 ## Technologies Used
-
 - Backend: Python, Flask framework
 - Database: SQLite
 - Frontend: HTML, CSS, jQuery, Bootstrap
-
-
-## New Skills and Research
-- Backend Development:  I learned Flask, a Python web framework, to handle the backend development of the application.
-
-- Database Integration: I improve my understanding of SQLite and its integration with Flask, which was necessary for managing the database operations in a easy way.
-
-- Frontend Techniques: Research frontend techniques for implementing a Kanban board, such as incorporating drag and drop functionality using jQuery.
 
 
 ## Project Outcomes
@@ -44,7 +31,11 @@ The Job Application Tracker is a web application designed to help users track th
 
 
 ## TODOs:
-- [x] Implement bootstrap;
+- [ ] Implement bootstrap;
+- [x] Move DB to MySQL;
+- [x] Dockerized app
+- [ ] Add user option to activate / deactive account
+  - [ ] session check if login is active;
 - [ ] simplify required login for all others modules;
 - [ ] Implement a module to scrape websites like LinkedIn, Indeed, Glassdoor, etc., and store the job postings in a MongoDB or SQLite database.
 - [ ] Add an archive option in the job edit form to allow users to archive completed or closed job entries.
@@ -58,4 +49,4 @@ The Job Application Tracker is a web application designed to help users track th
 - [ ] Enable HTTPS with SSL/TLS certificates and secure session management.
 - [ ] Conduct regular security audits, vulnerability assessments, and penetration testing.
 - [ ] Stay updated with security best practices and industry standards.
-# app.flask.jts
+
