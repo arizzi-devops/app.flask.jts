@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Job</title>
+</head>
+<body>
+    <h1>Edit Job</h1>
+    <form method="post">
+        <label for="name">Name:</label>
+        <input type="text" name="name" value="{{ job.name }}" required>
+        <label for="location">Location:</label>
+        <input type="text" name="location" value="{{ job.location }}" required>
+        <label for="url">URL:</label>
+        <input type="text" name="url" value="{{ job.url }}" required>
+        <input type="submit" value="Save">
+    </form>
+</body>
+</html>

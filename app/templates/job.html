@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Jobs</title>
+</head>
+<body>
+    <h1>Jobs</h1>
+    <form method="post">
+        <label for="name">Name:</label>
+        <input type="text" name="name" required>
+        <label for="location">Location:</label>
+        <input type="text" name="location" required>
+        <label for="url">URL:</label>
+        <input type="text" name="url" required>
+        <input type="submit" value="Add Job">
+    </form>
+    <ul>
+        {% for job in jobs %}
+            <li>
+                {{ job.name }} - {{ job.location }} - {{ job.url }}
+                <a href="{{ url_for('edit_job', job_id=job.id) }}">Edit</a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
