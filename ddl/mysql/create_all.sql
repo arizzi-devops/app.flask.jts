@@ -16,3 +16,6 @@ CREATE TABLE IF NOT EXISTS user (
     password VARCHAR(32) NOT NULL,
     is_active BOOLEAN NOT NULL
 );
+
+--changeset arizzi:2
+ALTER TABLE user ALTER COLUMN is_active SET DEFAULT TRUE;

@@ -10,7 +10,7 @@ services:
     ports:
       - 5000:5000
     volumes:
-      - ./app:/app/app
+      - ./app:/app
     depends_on:
       - db
 
@@ -21,8 +21,12 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-password}
       MYSQL_DATABASE: flask_app_db
+    ports:
+      - 3306:3306
     volumes:
       - ./data/db:/var/lib/mysql
+
+
   liquibase:
     image: liquibase/liquibase:${liquibase_tag_version:-4.9.1}
     profiles: ["no-autostart"]
