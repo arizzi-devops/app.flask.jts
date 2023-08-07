@@ -1,4 +1,4 @@
-
+// @TODO: If the column is the same, dont send the request, just skip
 // Drag and Drop Functions
 function allowDrop(event) {
     event.preventDefault();
