@@ -42,17 +42,17 @@
     </nav>
     <div class="container mt-4">
       {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-          {% for category, message in messages %}
-              {% if category == 'message' %}
-                <div class="alert alert-warning" role="alert">
-              {% else %}
-                <div class="alert alert-{{ category }}" role="alert">
-              {% endif %}
-                {{ message }}
-              </div>
-          {% endfor %}
-        {% endif %}
+      {% if messages %}
+        {% for category, message in messages %}
+            {% if category == 'message' %}
+              <div class="alert alert-warning" role="alert">
+            {% else %}
+              <div class="alert alert-{{ category }}" role="alert">
+            {% endif %}
+              {{ message }}
+            </div>
+        {% endfor %}
+      {% endif %}
       {% endwith %}
       {% block content %}{% endblock %}
     </div>
