@@ -7,7 +7,7 @@ from flask_login import login_user, login_required, logout_user, current_user
 
 @bp.route('/login')
 def login():
-    return render_template('auth/login.html')
+    return render_template('auth/login.html', user=current_user)
 
 @bp.route('/signin', methods=['POST'])
 def signin():
@@ -26,8 +26,8 @@ def signin():
             flash('erro no login!', 'danger')
     return render_template('auth/login.html', user=current_user)
 
-@bp.route('/logout')
+@bp.route('/signout')
 @login_required
-def logout():
+def signout():
     logout_user()
-    return redirect(url_for('auth.login'))
+    return redirect(url_for('main.index'))
