@@ -1,4 +1,4 @@
-flask_login
 flask_sqlalchemy
 flask_wtf
 mysql-connector-python
+flask_login
