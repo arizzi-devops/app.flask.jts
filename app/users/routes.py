@@ -2,14 +2,17 @@ from flask import render_template, request, redirect, url_for, flash
 from app.users import bp
 from app.extensions import db
 from app.models.user import User
+from flask_login import current_user, login_required
 
 @bp.route('/')
+@login_required
 def index():
     users = User.query.all()
-    return render_template('users/list.html', users=users)
+    return render_template('users/list.html', users=users, user=current_user)
 
 
 @bp.route('/add', methods=['GET', 'POST'])
+@login_required
 def add():
     if request.method == 'POST':
         user = User.query.filter_by(login=request.form['login']).first()
@@ -25,10 +28,11 @@ def add():
             db.session.commit()
             flash('user added successfully.', 'success')
             return redirect(url_for('users.index'))
-    return render_template('users/form.html', user={})
+    return render_template('users/form.html', users={}, user=current_user)
 
 
 @bp.route('/<int:user_id>/edit', methods=['GET', 'POST'])
+@login_required
 def edit(user_id):
     if request.method == 'POST':
         user = User.query.filter_by(id=user_id).first()
@@ -45,9 +49,10 @@ def edit(user_id):
         return redirect(url_for('users.index'))
     else:
         user = User.query.get(user_id)
-    return render_template('users/form.html', user=user)
+    return render_template('users/form.html', users=user, user=current_user)
 
 @bp.route('/<int:user_id>/delete', methods=['GET', 'POST'])
+@login_required
 def delete(user_id):
     if request.method == 'POST':
         user = User.query.filter_by(id=user_id).first()
