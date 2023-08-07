@@ -31,6 +31,7 @@ def add():
 
 
 @bp.route('/<int:user_id>/edit', methods=['GET', 'POST'])
+@login_required
 def edit(user_id):
     if request.method == 'POST':
         user = User.query.filter_by(id=user_id).first()
@@ -50,6 +51,7 @@ def edit(user_id):
     return render_template('users/form.html', users=user, user=current_user)
 
 @bp.route('/<int:user_id>/delete', methods=['GET', 'POST'])
+@login_required
 def delete(user_id):
     if request.method == 'POST':
         user = User.query.filter_by(id=user_id).first()
