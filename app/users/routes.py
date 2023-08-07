@@ -5,6 +5,7 @@ from app.models.user import User
 from flask_login import current_user, login_required
 
 @bp.route('/')
+@login_required
 def index():
     users = User.query.all()
     return render_template('users/list.html', users=users, user=current_user)
