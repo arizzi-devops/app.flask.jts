@@ -17,13 +17,13 @@ def signin():
         remember_me = False
         if "remember_me" in request.form and request.form['remember_me'] == 'on':
             remember_me = True
-        user = User.query.filter_by(login=login, password=password).first()
+        user = User.query.filter_by(login=login, password=password,is_active=True).first()
         if user:
             flash('Signed in successfully!', 'success')
             login_user(user, remember=remember_me)
             return redirect(url_for('main.index'))
         else:
-            flash('erro no login!', 'danger')
+            flash('Unexpected error, try again!', 'danger')
     return render_template('auth/login.html', user=current_user)
 
 @bp.route('/signout')
