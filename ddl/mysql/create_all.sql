@@ -19,3 +19,6 @@ CREATE TABLE IF NOT EXISTS user (
 
 --changeset arizzi:2
 ALTER TABLE user ALTER COLUMN is_active SET DEFAULT TRUE;
+
+--changeset arizzi:3
+ALTER TABLE job ADD COLUMN status_id INT NOT NULL;
