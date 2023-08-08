@@ -1,4 +1,4 @@
-version: '3.7'
+version: '3.4'
 services:
   app:
     image: localrepo/app
@@ -7,6 +7,7 @@ services:
       dockerfile: Dockerfile
     environment:
       - FLASK_DEBUG=1
+      - FLASK_APP=/app
     ports:
       - 5000:5000
     volumes:
@@ -25,6 +26,12 @@ services:
       - 3306:3306
     volumes:
       - ./data/db:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "--password=${MYSQL_ROOT_PASSWORD:-password}"]
+      interval: 10s
+      timeout: 30s
+      retries: 5
+      start_period: 15s
 
 
   liquibase:
@@ -38,5 +45,7 @@ services:
       - ./conf/liquibase.changelog.xml:/liquibase/changelog.xml
       - ./lib/drivers/mysql-connector-java-5.1.46.jar:/liquibase/mysql-connector-java.jar
     depends_on:
-      - db
+      db:
+        condition: service_healthy
+
     command: update --defaults-file=liquibase.properties --changelog-file=changelog.xml
