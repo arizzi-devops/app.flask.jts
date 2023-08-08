@@ -5,6 +5,9 @@ from app.extensions import db
 
 from flask_login import LoginManager
 
+from flask_admin import Admin
+from flask_admin.contrib.sqla import ModelView
+
 def create_app(config_class=Config):
     app = Flask(__name__)
     app.config.from_object(config_class)
@@ -12,6 +15,7 @@ def create_app(config_class=Config):
     # Initialize Flask extensions here
     db.init_app(app)
 
+    # Flask-Login
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'
     login_manager.init_app(app)
@@ -20,6 +24,11 @@ def create_app(config_class=Config):
     @login_manager.user_loader
     def load_user(user_id):
         return User.query.get(int(user_id))
+
+    # Flask-Admin
+    admin = Admin(app, url='/admtbl')
+    from .models.job_status import JobStatus
+    admin.add_view(ModelView(JobStatus, db.session))
 
     # Register blueprints here
     from app.main import bp as main_bp

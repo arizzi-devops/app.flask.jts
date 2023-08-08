@@ -18,3 +18,11 @@ CREATE TABLE IF NOT EXISTS job (
     url VARCHAR(200) NOT NULL,
     status_id INT NOT NULL
 );
+
+--changeset arizzi:3
+CREATE TABLE IF NOT EXISTS job_status (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(32) NOT NULL
+);
+INSERT INTO job_status (name)
+	VALUES ('Applied'), ('H.R.'), ('Tech'), ('Done');
