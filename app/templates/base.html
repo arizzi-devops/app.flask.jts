@@ -17,14 +17,14 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link active" href="/">Home</a>
+              <a class="nav-link active" href="{{ url_for('main.index') }}">Home</a>
             </li>
             {% if user.is_authenticated %}
             <li class="nav-item">
-              <a class="nav-link active" href="/jobs">My Jobs</a>
+              <a class="nav-link active" href="{{ url_for('jobs.index') }}">My Jobs</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="/users">Users</a>
+              <a class="nav-link active" href="{{ url_for('users.index') }}">Users</a>
             </li>
 
             <li class="nav-item dropdown">
@@ -32,7 +32,7 @@
               <ul class="dropdown-menu">
                   <li><a href="#" class="dropdown-item">Tables ...</a>
                       <ul class="dropdown-menu submenu">
-                          <li><a href="#" class="dropdown-item">Job status</a></li>
+                          <li><a href="{{ url_for('admin.index') }}" class="dropdown-item">Job status</a></li>
                       </ul>
                   </li>
               </ul>
