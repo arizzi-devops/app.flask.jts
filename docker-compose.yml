@@ -6,7 +6,7 @@ services:
     build: 
       context: jts/
     env_file:
-      - jts.env
+      - conf/dev_jts_env
     ports:
       - 5000:5000
     volumes:
@@ -18,9 +18,17 @@ services:
   mysql-db:
     image: "mysql:${MYSQL_VERSION_TAG}"
     env_file:
-      - jts.env
+      - conf/dev_jts_env
+    ports:
+      - 3307:3306
     volumes:
       - ./data:/var/lib/mysql
+    environment:
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_PASSWORD=${DB_PASS}
+      - MYSQL_DATABASE=${DB_NAME}
+      #- MYSQL_RANDOM_ROOT_PASSWORD=1
+      - MYSQL_ROOT_PASSWORD=changeit987
     healthcheck:
         test: ["CMD", "mysqladmin", "-u", "${DB_USER}", "--password=${DB_PASS}", "ping"]
         interval: 5s

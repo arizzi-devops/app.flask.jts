@@ -61,6 +61,7 @@ def login():
         cursor.execute("SELECT * FROM users WHERE username = %s AND active = 1", (username,))
         user = cursor.fetchone()
         conn.close()
+        print (user['username'])
 
         if user and user['password'] == password:
             session['username'] = user['username']
