@@ -25,16 +25,8 @@ The Job Application Tracker is a web application designed to help users track th
 ## Technologies Used
 
 - Backend: Python, Flask framework
-- Database: SQLite
+- Database: MySQL
 - Frontend: HTML, CSS, jQuery, Bootstrap
-
-
-## New Skills and Research
-- Backend Development:  I learned Flask, a Python web framework, to handle the backend development of the application.
-
-- Database Integration: I improve my understanding of SQLite and its integration with Flask, which was necessary for managing the database operations in a easy way.
-
-- Frontend Techniques: Research frontend techniques for implementing a Kanban board, such as incorporating drag and drop functionality using jQuery.
 
 
 ## Project Outcomes
@@ -58,4 +50,3 @@ The Job Application Tracker is a web application designed to help users track th
 - [ ] Enable HTTPS with SSL/TLS certificates and secure session management.
 - [ ] Conduct regular security audits, vulnerability assessments, and penetration testing.
 - [ ] Stay updated with security best practices and industry standards.
-# app.flask.jts
