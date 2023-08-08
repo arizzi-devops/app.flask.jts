@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if job %}
+        <form action="{{ url_for('jobs.edit', job_id=job.id) }}" method="POST">
+            <fieldset>
+                <legend>Edit Job</legend>
+    {% else %}
+        <form action="{{ url_for('jobs.add') }}" method="post">
+            <fieldset>
+                <legend>Add Job</legend>
+    {% endif %}
+
+    <div class="mb-3">
+        <label for="name" class="form-label">Job Title:</label>
+        <input type="text" class="form-control" id="name" name="name" value="{{ job.name }}" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="location" class="form-label">Company:</label>
+        <input type="text" class="form-control" id="location" name="location" value="{{ job.location }}">
+    </div>
+
+    <div class="mb-3">
+        <label for="url" class="form-label">Job Link:</label>
+        <input type="text" class="form-control" id="url" name="url" value="{{ job.url }}">
+    </div>
+    {% if job %}
+        <div class="button-container">
+            <button type="submit" class="btn btn-primary">Update Job</button>
+            </form><form action="{{ url_for('jobs.delete', job_id=job.id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this job?');">
+                <button type="submit" class="btn btn-danger delete-button"><i class="bi bi-trash"></i> Delete Job</button>
+            </form>
+        </div>
+    {% else %}
+        <div class="button-container">
+            <button type="submit" class="btn btn-primary">Add Job</button>
+        </div>
+    {% endif %}
+            </fieldset>
+        </form>
+    <style>
+        .button-container {
+            display: flex;
+            gap: 10px; /* Adjust the gap between buttons as needed */
+        }
+    </style>
+{% endblock %}
