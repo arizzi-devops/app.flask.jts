@@ -22,7 +22,6 @@
                 <div class="card-header">{{ status }}</div>
                 <div class="card-body" data-column-id="{{ status_id }}" ondragover="allowDrop(event)" ondrop="drop(event)">
                 {% for job in jobs %}
-                <!-- jhaosdhuaishduisa -->
                 {% if job.status_id == status_id %}
                     <div class="card mb-3" draggable="true" ondragstart="drag(event)" data-task-id="{{ job.id }}">
                         <div class="card-body">

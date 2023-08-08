@@ -7,6 +7,7 @@ function allowDrop(event) {
 function drag(event) {
   event.currentTarget.classList.add("dragging");
   jobId = $(event.target).closest(".card.mb-3").attr("data-task-id");
+  statusId = $(event.target).closest(".card.mb-3").closest(".card-body").attr("data-column-id");
 }
 
 function drop(event) {
@@ -14,6 +15,12 @@ function drop(event) {
   var targetColumnId = event.currentTarget.getAttribute("data-column-id");
   var targetColumn = $(event.currentTarget);
 
+  if (targetColumnId = statusId) {
+    console.log('deu return');
+    return;
+  }
+
+    console.log('vai meter um update');
   // Move the dragged task to the target column
   var task = $("[data-task-id='" + jobId + "']");
   targetColumn.append(task);
@@ -39,6 +46,7 @@ function drop(event) {
 
   // Reset the jobId variable
   jobId = null;
+  statusId = null;
 }
 
 $(document).ready(function() {
