@@ -42,3 +42,23 @@
     </div>
 {% endblock %}
 
+{% block javascript %}
+
+<script>
+$(document).ready(function() {
+  $(".table").on("dblclick", "tbody tr", function() {
+    // Find the <a> element within the row
+    var editLink = $(this).find("a");
+
+    // Get the href attribute value (URL)
+    var editUrl = editLink.attr("href");
+
+    // Redirect to the edit URL
+    if (editUrl) {
+      window.location.href = editUrl;
+    }
+  });
+});
+</script>
+
+{% endblock %}
