@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect, url_for, flash
+from flask import render_template, request, redirect, url_for, flash, jsonify
 from app.jobs import bp
 from app.extensions import db
 from app.models.job import Job
@@ -31,32 +31,41 @@ def add():
     return render_template('jobs/form.html', job={}, user=current_user)
 
 
-# @bp.route('/<int:user_id>/edit', methods=['GET', 'POST'])
-# @login_required
-# def edit(user_id):
-#     if request.method == 'POST':
-#         user = Job.query.filter_by(id=user_id).first()
-#         new_is_active = 0
-#         if "is_active" in request.form and request.form['is_active'] == 'on':
-#             new_is_active = 1
-# 
-#         user.is_active = new_is_active
-#         user.name = request.form['name']
-#         if request.form['password'] != '':
-#             user.password = request.form['password']
-#         db.session.commit()
-#         flash('user updated successfully.', 'success')
-#         return redirect(url_for('users.index'))
-#     else:
-#         user = Job.query.get(user_id)
-#     return render_template('users/form.html', users=user, user=current_user)
-# 
-# @bp.route('/<int:user_id>/delete', methods=['GET', 'POST'])
-# @login_required
-# def delete(user_id):
-#     if request.method == 'POST':
-#         user = Job.query.filter_by(id=user_id).first()
-#         db.session.delete(user)
-#         db.session.commit()
-#         flash('user deleted successfully.', 'success')
-#         return redirect(url_for('users.index'))
+@bp.route('/edit/<int:job_id>', methods=['GET', 'POST'])
+@login_required
+def edit(job_id):
+    job = {}
+    if request.method == 'POST':
+        job = Job.query.filter_by(id=job_id).first()
+        job.name = request.form['name']
+        job.location = request.form['location']
+        job.url = request.form['url']
+        db.session.commit()
+        flash('job updated successfully.', 'success')
+        return redirect(url_for('jobs.index'))
+    else:
+        job = Job.query.get(job_id)
+    return render_template('jobs/form.html', job=job, user=current_user)
+
+
+@bp.route('/edit/<int:job_id>/status', methods=['POST'])
+@login_required
+def edit_status(job_id):
+    job = Job.query.filter_by(id=job_id).first()
+    job.status_id = request.json["new_status_id"]
+    db.session.commit()
+    return jsonify({'status': 'success', 'message': 'Job status updated'}), 200
+
+
+@bp.route('/delete/<int:job_id>', methods=['POST'])
+@login_required
+def delete(job_id):
+    if request.method == 'POST':
+        job = Job.query.filter_by(id=job_id).first()
+        db.session.delete(job)
+        db.session.commit()
+        flash('job updated successfully.', 'success')
+        return redirect(url_for('jobs.index'))
+    else:
+        job = Job.query.get(job_id)
+    return render_template('jobs/form.html', job=job, user=current_user)
