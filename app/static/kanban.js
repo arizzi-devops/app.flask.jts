@@ -1,7 +1,14 @@
-// @TODO: If the column is the same, dont send the request, just skip
+// Define global variables to store current jobId and statusId
+var jobId = null;
+var statusId = null;
+
+function isSameColumn(sourceColumnId, targetColumnId) {
+  return sourceColumnId === targetColumnId;
+}
+
 // Drag and Drop Functions
 function allowDrop(event) {
-    event.preventDefault();
+  event.preventDefault();
 }
 
 function drag(event) {
@@ -15,12 +22,11 @@ function drop(event) {
   var targetColumnId = event.currentTarget.getAttribute("data-column-id");
   var targetColumn = $(event.currentTarget);
 
-  if (targetColumnId = statusId) {
-    console.log('deu return');
+  if (isSameColumn(statusId, targetColumnId)) {
+    console.log('Same column, skipping request');
     return;
   }
 
-    console.log('vai meter um update');
   // Move the dragged task to the target column
   var task = $("[data-task-id='" + jobId + "']");
   targetColumn.append(task);
@@ -44,18 +50,18 @@ function drop(event) {
     }
   });
 
-  // Reset the jobId variable
+  // Reset the jobId and statusId variables
   jobId = null;
   statusId = null;
 }
 
 $(document).ready(function() {
   $(".card.mb-3").on("dblclick", function(event) {
-      var jobId = $(this).attr("data-task-id");
-      window.location.href = "/jobs/edit/" + jobId;
+    var jobId = $(this).attr("data-task-id");
+    window.location.href = "/jobs/edit/" + jobId;
   });
 
-    // Add dragend event listener to remove 'dragging' class
+  // Add dragend event listener to remove 'dragging' class
   $(".card.mb-3").on("dragend", function(event) {
     event.currentTarget.classList.remove("dragging");
   });
