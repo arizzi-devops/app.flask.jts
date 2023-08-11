@@ -2,8 +2,8 @@ from flask import render_template, request, redirect, url_for, flash
 from app.auth import bp
 from app.extensions import db
 from app.models.user import User
-
 from flask_login import login_user, login_required, logout_user, current_user
+from werkzeug.security import check_password_hash
 
 @bp.route('/login')
 def login():
@@ -17,13 +17,13 @@ def signin():
         remember_me = False
         if "remember_me" in request.form and request.form['remember_me'] == 'on':
             remember_me = True
-        user = User.query.filter_by(login=login, password=password,is_active=True).first()
+        user = User.query.filter_by(login=login, is_active=True).first()
         if user:
-            flash('Signed in successfully!', 'success')
-            login_user(user, remember=remember_me)
-            return redirect(url_for('main.index'))
-        else:
-            flash('Unexpected error, try again!', 'danger')
+            if check_password_hash(user.password, password):
+                flash('Signed in successfully!', 'success')
+                login_user(user, remember=remember_me)
+                return redirect(url_for('main.index'))
+        flash('Unexpected error, try again!', 'danger')
     return render_template('auth/login.html', user=current_user)
 
 @bp.route('/signout')

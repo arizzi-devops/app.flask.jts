@@ -3,6 +3,7 @@ from app.users import bp
 from app.extensions import db
 from app.models.user import User
 from flask_login import current_user, login_required
+from werkzeug.security import generate_password_hash
 
 @bp.route('/')
 @login_required
@@ -22,7 +23,7 @@ def add():
             user = User(
                 name = request.form['name'],
                 login = request.form['login'],
-                password = request.form['password']
+                password = generate_password_hash(request.form['password'])
             )
             db.session.add(user)
             db.session.commit()
@@ -43,7 +44,7 @@ def edit(user_id):
         user.is_active = new_is_active
         user.name = request.form['name']
         if request.form['password'] != '':
-            user.password = request.form['password']
+            user.password = generate_password_hash(request.form['password'])
         db.session.commit()
         flash('user updated successfully.', 'success')
         return redirect(url_for('users.index'))
