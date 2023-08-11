@@ -4,11 +4,11 @@ CREATE TABLE IF NOT EXISTS user (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     login VARCHAR(12) NOT NULL UNIQUE,
-    password VARCHAR(32) NOT NULL,
+    password VARCHAR(128) NOT NULL,
     is_active BOOLEAN NOT NULL DEFAULT TRUE
 );
 INSERT INTO user (name,login,password)
-	VALUES ('Admin','admin','admin');
+	VALUES ('Admin','admin','pbkdf2:sha256:600000$ntbWuWyrvJ4L0zsv$923a15ec48a163ab4c009eb827e254c13e2630333745ba62aef3553cd0b1b236');
 
 --changeset arizzi:2
 CREATE TABLE IF NOT EXISTS job (
