@@ -9,7 +9,7 @@ statuses = ["New", "Applied", "H.R.", "Tech", "Finished"]
 @bp.route('/')
 @login_required
 def index():
-    jobs = Job.query.all()
+    jobs = Job.query.filter_by(user_id=current_user.id).all()
     print(len(jobs))
     return render_template('jobs/kanban.html', jobs=jobs, user=current_user, statuses=statuses)
 
@@ -22,7 +22,8 @@ def add():
             name = request.form["name"],
             location = request.form["location"],
             url = request.form["url"],
-            status_id = 1
+            status_id = 0,
+            user_id = current_user.id
         )
         db.session.add(job)
         db.session.commit()
@@ -36,7 +37,7 @@ def add():
 def edit(job_id):
     job = {}
     if request.method == 'POST':
-        job = Job.query.filter_by(id=job_id).first()
+        job = Job.query.filter_by(id=job_id, user_id=current_user.id).first()
         job.name = request.form['name']
         job.location = request.form['location']
         job.url = request.form['url']
@@ -51,7 +52,7 @@ def edit(job_id):
 @bp.route('/edit/<int:job_id>/status', methods=['POST'])
 @login_required
 def edit_status(job_id):
-    job = Job.query.filter_by(id=job_id).first()
+    job = Job.query.filter_by(id=job_id, user_id=current_user.id).first()
     job.status_id = request.json["new_status_id"]
     db.session.commit()
     return jsonify({'status': 'success', 'message': 'Job status updated'}), 200
@@ -61,7 +62,7 @@ def edit_status(job_id):
 @login_required
 def delete(job_id):
     if request.method == 'POST':
-        job = Job.query.filter_by(id=job_id).first()
+        job = Job.query.filter_by(id=job_id, user_id=current_user.id).first()
         db.session.delete(job)
         db.session.commit()
         flash('job updated successfully.', 'success')
