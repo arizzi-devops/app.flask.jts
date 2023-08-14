@@ -1,9 +1,9 @@
 FROM python:3.9-slim-bullseye
 
-ENV DB_HOST
-ENV DB_USER
-ENV DB_PASS
-ENV DB_NAME
+ENV DB_HOST=host
+ENV DB_USER=user
+ENV DB_PASS=pass
+ENV DB_NAME=name
 ENV PORT=${PORT:-5000}
 
 WORKDIR /app
