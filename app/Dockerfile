@@ -1,9 +1,9 @@
 FROM python:3.9-slim-bullseye
 
-ENV DB_HOST=host
+ENV DB_HOST=db
 ENV DB_USER=user
-ENV DB_PASSWORD=pass
-ENV DB_NAME=name
+ENV DB_PASSWORD=password
+ENV DB_NAME=flask_app_db
 ENV PORT=${PORT:-5000}
 
 WORKDIR /app
