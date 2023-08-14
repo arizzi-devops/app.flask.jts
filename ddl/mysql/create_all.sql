@@ -29,5 +29,5 @@ INSERT INTO job_status (name)
 
 -- changeset arizzi:4
 ALTER TABLE job
-	ADD column user_id INT NOT NULL,
-	ADD FOREIGN KEY (user_id) REFERENCES user(id);
+	ADD column user_id INT NOT NULL;
+-- ALTER TABLE job ADD FOREIGN KEY (user_id) REFERENCES user(id);
