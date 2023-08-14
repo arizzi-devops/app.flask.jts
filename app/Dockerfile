@@ -2,7 +2,7 @@ FROM python:3.9-slim-bullseye
 
 ENV DB_HOST=host
 ENV DB_USER=user
-ENV DB_PASS=pass
+ENV DB_PASSWORD=pass
 ENV DB_NAME=name
 ENV PORT=${PORT:-5000}
 
