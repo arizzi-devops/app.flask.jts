@@ -30,19 +30,15 @@ services:
       retries: 5
       start_period: 15s
 
-
   liquibase:
-    image: liquibase/liquibase:${liquibase_tag_version:-4.9.1}
+    image: localrepo/lb
+    build:
+      context: lb/
+      dockerfile: Dockerfile
     profiles: ["no-autostart"]
     env_file:
       - .env
     volumes:
-      - ./ddl/mysql:/liquibase/ddl/mysql
-      - ./conf/liquibase.properties:/liquibase/liquibase.properties
-      - ./conf/liquibase.changelog.xml:/liquibase/changelog.xml
-      - ./lib/drivers/mysql-connector-java-5.1.46.jar:/liquibase/mysql-connector-java.jar
-    depends_on:
-      db:
-        condition: service_healthy
-
-    command: update --defaults-file=liquibase.properties --changelog-file=changelog.xml
+      - ./ddl/mysql:/liquibase/ddl/mysql:ro
+      - ./lib/drivers/mysql-connector-java-5.1.46.jar:/liquibase/mysql-connector-java.jar:ro
+    command: update
