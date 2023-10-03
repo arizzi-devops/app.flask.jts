@@ -31,3 +31,15 @@ INSERT INTO job_status (name)
 ALTER TABLE job
 	ADD column user_id INT NOT NULL;
 -- ALTER TABLE job ADD FOREIGN KEY (user_id) REFERENCES user(id);
+
+
+
+-- changeset arizzi:5
+ALTER TABLE job
+	ADD column user_id INT NOT NULL;
+-- ALTER TABLE job ADD FOREIGN KEY (user_id) REFERENCES user(id);
+
+
+-- changeset arizzi:6
+ALTER TABLE job
+    ADD column expectation INT DEFAULT 0 NOT NULL;
