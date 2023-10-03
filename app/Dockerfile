@@ -5,6 +5,7 @@ ENV DB_USER=user
 ENV DB_PASSWORD=password
 ENV DB_NAME=flask_app_db
 ENV PORT=${PORT:-5000}
+ENV FLASK_APP=/app
 
 WORKDIR /app
 COPY requirements.txt requirements.txt
