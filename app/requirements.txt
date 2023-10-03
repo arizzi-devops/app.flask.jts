@@ -1,5 +1,6 @@
 flask_sqlalchemy
-flask_wtf
+# flask_wtf
 mysql-connector-python
 flask_login
 flask_admin
+werkzeug==2.3

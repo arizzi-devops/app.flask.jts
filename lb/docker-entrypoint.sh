@@ -4,7 +4,7 @@ set -e
 generate_liquibase_props() {
     props_file="/liquibase/liquibase.docker.properties"
     cat <<EOF > "$props_file"
-liquibase.command.url: jdbc:mysql://${DB_HOST}:${DB_PORT}/${DB_NAME}?useSSL=true&requireSSL=true&verifyServerCertificate=false
+liquibase.command.url: jdbc:mysql://${DB_HOST}:${DB_PORT:-3306}/${DB_NAME}?useSSL=false&requireSSL=true&verifyServerCertificate=false
 liquibase.command.username: ${DB_USER_ADM}
 liquibase.command.password: ${DB_PASSWORD_ADM}
 
