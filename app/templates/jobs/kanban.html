@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- Kanban Dashboard -->
+
+
+<div class="row">
+    <div class="col">
+        <h2><b>Jobs</b> Dashboard
+        <a href="/jobs/add" class="btn btn-success"><i class="bi bi-person-add"></i> Add new job</a>
+        <small><small><small><small>(double click to edit a job)</small></small></small></small>
+        </h2>
+    </div>
+</div>
+
+
+    <div class="row">
+        {% for status in statuses %}
+        {% set status_id = loop.index %}
+        <div class="col">
+            <div class="card">
+                <div class="card-header">{{ status }}</div>
+                <div class="card-body" data-column-id="{{ status_id }}" ondragover="allowDrop(event)" ondrop="drop(event)">
+                {% for job in jobs %}
+                {% if job.status_id == status_id or ( status_id == 1 and job.status_id == 0 )  %}
+                    <div class="card mb-3" draggable="true" ondragstart="drag(event)" data-task-id="{{ job.id }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ job.name }}</h5>
+                            <small class="text-muted">@{{ job.location }}</small>
+                        </div>
+                    </div>
+                {% endif %}
+                {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+
+<style>
+    h5 {
+        line-height: 1;
+    }
+    .card-title {
+        margin-bottom: 0px;
+    }
+</style>
+{% endblock %}
+{% block javascript %}
+<script src="{{ url_for('static', filename='kanban.js') }}"></script>
+{% endblock %}

@@ -1,8 +1,4 @@
 # Job Application Tracker
-#### Video Demo:  https://youtu.be/CtAU5nCnBWY
-#### Description:
-
-
 ## Overview
 The Job Application Tracker is a web application designed to help users track their job applications. It provides a Kanban-style interface to manage job statuses and facilitates organizing and monitoring the application process.
 
@@ -23,7 +19,6 @@ The Job Application Tracker is a web application designed to help users track th
   - Update job status with a Kanban board interface
 
 ## Technologies Used
-
 - Backend: Python, Flask framework
 - Database: MySQL
 - Frontend: HTML, CSS, jQuery, Bootstrap
@@ -37,7 +32,11 @@ The Job Application Tracker is a web application designed to help users track th
 
 ## TODOs:
 - [x] Implement bootstrap;
-- [ ] simplify required login for all others modules;
+- [x] Move DB to MySQL;
+- [x] Dockerized app
+- [x] Add user option to activate / deactive account
+  - [ ] session check if login is active;
+- [x] simplify required login for all others modules;
 - [ ] Implement a module to scrape websites like LinkedIn, Indeed, Glassdoor, etc., and store the job postings in a MongoDB or SQLite database.
 - [ ] Add an archive option in the job edit form to allow users to archive completed or closed job entries.
 - [ ] Create a separate section or filter for accessing archived items, limiting their visibility to archived status only.
