@@ -35,3 +35,8 @@ ALTER TABLE job
 -- changeset arizzi:5
 ALTER TABLE job
     ADD column expectation INT DEFAULT 0 NOT NULL;
+
+-- changeset arizzi:6
+ALTER TABLE job
+    CHANGE expectation salary_expectation
+    INT DEFAULT 0 NOT NULL;

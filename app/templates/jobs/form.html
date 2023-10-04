@@ -25,6 +25,11 @@
         <label for="url" class="form-label">Job Link:</label>
         <input type="text" class="form-control" id="url" name="url" value="{{ job.url }}">
     </div>
+
+    <div class="mb-3">
+        <label for="salary_expectation" class="form-label">Salary expectation:</label>
+        <input type="text" class="form-control" id="salary_expectation" name="salary_expectation" value="{{ job.salary_expectation }}">
+    </div>
     {% if job %}
         <div class="button-container">
             <button type="submit" class="btn btn-primary">Update Job</button>
@@ -45,4 +50,12 @@
             gap: 10px; /* Adjust the gap between buttons as needed */
         }
     </style>
+{% endblock %}
+{% block javascript %}
+<script>
+    // allow only numbers
+    document.getElementById('salary_expectation').addEventListener('input', function() {
+        this.value = this.value.replace(/[^0-9]/g, '');
+    });
+</script>
 {% endblock %}
