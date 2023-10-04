@@ -7,6 +7,7 @@ class Job(db.Model):
     url = db.Column()
     status_id = db.Column()
     user_id = db.Column(db.Integer)
+    salary_expectation = db.Column(db.Integer)
 
     def __repr__(self):
         return f'<Job "{self.title}">'
