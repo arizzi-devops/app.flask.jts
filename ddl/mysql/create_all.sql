@@ -43,4 +43,5 @@ ALTER TABLE job
 
 -- changeset arizzi:7
 ALTER TABLE job
-    RENAME COLUMN location to company;
+    CHANGE location company
+    VARCHAR(100) NOT NULL;
