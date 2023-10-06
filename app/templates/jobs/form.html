@@ -30,6 +30,18 @@
         <label for="salary_expectation" class="form-label">Salary expectation:</label>
         <input type="text" class="form-control" id="salary_expectation" name="salary_expectation" value="{{ job.salary_expectation }}">
     </div>
+
+    <div class="mb-3">
+        <label for="location" class="form-label">Type:</label>
+            <div class="dropdown bootstrap-select show-tick form-control iAuthStatus1">
+                <select name="location" id="location" class="form-control selectpicker show-tick iAuthStatus1" data-size="15" data-live-search="true" tabindex="-98">
+                <option value=""></option>
+                <option value="0">Remote</option>
+                <option value="1">Hybrid</option>
+                <option value="2">on-Site</option>
+                </select>
+            </div>
+    </div>
     {% if job %}
         <div class="button-container">
             <button type="submit" class="btn btn-primary">Update Job</button>
@@ -57,5 +69,8 @@
     document.getElementById('salary_expectation').addEventListener('input', function() {
         this.value = this.value.replace(/[^0-9]/g, '');
     });
+
+    document.getElementById('location').value="{{ job.location }}";
+
 </script>
 {% endblock %}

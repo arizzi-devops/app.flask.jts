@@ -45,3 +45,7 @@ ALTER TABLE job
 ALTER TABLE job
     CHANGE location company
     VARCHAR(100) NOT NULL;
+
+-- changeset arizzi:8
+ALTER TABLE job
+    ADD location INT DEFAULT 0 NOT NULL;
