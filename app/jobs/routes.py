@@ -20,7 +20,7 @@ def add():
     if request.method == 'POST':
         job = Job(
             name = request.form["name"],
-            location = request.form["location"],
+            company = request.form["company"],
             url = request.form["url"],
             salary_expectation = request.form["salary_expectation"],
             status_id = 0,
@@ -40,7 +40,7 @@ def edit(job_id):
     if request.method == 'POST':
         job = Job.query.filter_by(id=job_id, user_id=current_user.id).first()
         job.name = request.form['name']
-        job.location = request.form['location']
+        job.company = request.form['company']
         job.url = request.form['url']
         job.salary_expectation = request.form['salary_expectation']
         db.session.commit()
