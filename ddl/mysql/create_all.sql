@@ -40,3 +40,12 @@ ALTER TABLE job
 ALTER TABLE job
     CHANGE expectation salary_expectation
     INT DEFAULT 0 NOT NULL;
+
+-- changeset arizzi:7
+ALTER TABLE job
+    CHANGE location company
+    VARCHAR(100) NOT NULL;
+
+-- changeset arizzi:8
+ALTER TABLE job
+    ADD column location INT DEFAULT 0 NOT NULL;

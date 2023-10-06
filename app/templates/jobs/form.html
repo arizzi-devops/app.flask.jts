@@ -17,8 +17,8 @@
     </div>
 
     <div class="mb-3">
-        <label for="location" class="form-label">Company:</label>
-        <input type="text" class="form-control" id="location" name="location" value="{{ job.location }}">
+        <label for="company" class="form-label">Company:</label>
+        <input type="text" class="form-control" id="company" name="company" value="{{ job.company }}">
     </div>
 
     <div class="mb-3">
@@ -28,7 +28,19 @@
 
     <div class="mb-3">
         <label for="salary_expectation" class="form-label">Salary expectation:</label>
-        <input type="text" class="form-control" id="salary_expectation" name="salary_expectation" value="{{ job.salary_expectation }}">
+        <input type="text" class="form-control" id="salary_expectation" name="salary_expectation" value="{{ job.salary_expectation }}" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="location" class="form-label">Type:</label>
+            <div class="dropdown bootstrap-select show-tick form-control iAuthStatus1">
+                <select name="location" id="location" class="form-control selectpicker show-tick iAuthStatus1" data-size="15" data-live-search="true" tabindex="-98" required>
+                <option value=""></option>
+                <option value="0">Remote</option>
+                <option value="1">Hybrid</option>
+                <option value="2">on-Site</option>
+                </select>
+            </div>
     </div>
     {% if job %}
         <div class="button-container">
@@ -57,5 +69,11 @@
     document.getElementById('salary_expectation').addEventListener('input', function() {
         this.value = this.value.replace(/[^0-9]/g, '');
     });
+
+    document.getElementById('location').value="{{ job.location }}";
+    se = "{{ job.salary_expectation }}";
+    if (se != "")
+        document.getElementById('salary_expectation').value="{{ job.salary_expectation }}";
+
 </script>
 {% endblock %}
