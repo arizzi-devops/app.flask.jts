@@ -23,6 +23,7 @@ def add():
             company = request.form["company"],
             url = request.form["url"],
             salary_expectation = request.form["salary_expectation"],
+            location = request.form["location"],
             status_id = 0,
             user_id = current_user.id
         )
@@ -43,6 +44,7 @@ def edit(job_id):
         job.company = request.form['company']
         job.url = request.form['url']
         job.salary_expectation = request.form['salary_expectation']
+        job.location = request.form['location']
         db.session.commit()
         flash('job updated successfully.', 'success')
         return redirect(url_for('jobs.index'))
