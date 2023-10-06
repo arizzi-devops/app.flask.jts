@@ -40,3 +40,7 @@ ALTER TABLE job
 ALTER TABLE job
     CHANGE expectation salary_expectation
     INT DEFAULT 0 NOT NULL;
+
+-- changeset arizzi:7
+ALTER TABLE job
+    RENAME COLUMN location to company;
