@@ -49,3 +49,4 @@ The Job Application Tracker is a web application designed to help users track th
 - [ ] Enable HTTPS with SSL/TLS certificates and secure session management.
 - [ ] Conduct regular security audits, vulnerability assessments, and penetration testing.
 - [ ] Stay updated with security best practices and industry standards.
+
