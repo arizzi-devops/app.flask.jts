@@ -48,4 +48,4 @@ ALTER TABLE job
 
 -- changeset arizzi:8
 ALTER TABLE job
-    ADD location INT DEFAULT 0 NOT NULL;
+    ADD column location INT DEFAULT 0 NOT NULL;
