@@ -2,6 +2,7 @@ from flask import render_template, request, redirect, url_for, flash, jsonify
 from app.jobs import bp
 from app.extensions import db
 from app.models.job import Job
+from app.models.job_status_change import JobStatusChange
 from flask_login import current_user, login_required
 
 statuses = ["New", "Applied", "H.R.", "Tech", "Finished"]
@@ -57,7 +58,24 @@ def edit(job_id):
 @login_required
 def edit_status(job_id):
     job = Job.query.filter_by(id=job_id, user_id=current_user.id).first()
-    job.status_id = request.json["new_status_id"]
+    old_status_id = job.status_id
+    new_status_id = request.json["new_status_id"]
+
+    if old_status_id == new_status_id:
+        return jsonify({'status': 'success', 'message': 'Job status unchanged'}), 200
+
+    # Create a JobStatusChange record
+    job_status_change = JobStatusChange(
+        job_id=job.id,
+        old_status_id=old_status_id,
+        new_status_id=new_status_id
+    )
+
+    # Update the job status
+    job.status_id = new_status_id
+
+    # Commit changes to the database
+    db.session.add(job_status_change)
     db.session.commit()
     return jsonify({'status': 'success', 'message': 'Job status updated'}), 200
 
