@@ -7,7 +7,19 @@ DB_HOST=db
 DB_PORT=3306
 DB_NAME=flask_app_db
 
+# Local
 DB_USER=jtsuser
 DB_PASSWORD=password
 DB_USER_ADM=root
 DB_PASSWORD_ADM=password
+
+
+# PlanetScale
+DB_USER_ADM=d8jwdfvcblmw4grbhn0k
+DB_PASSWORD_ADM=pscale_pw_DeF22OjBmq3NOeA9yfDIuWy20wSkUb7QaUR8b0EdkD6
+DB_HOST=aws.connect.psdb.cloud
+DB_PORT=3306
+DB_USESSL=true
+DB_REQUIRESSL=true
+DB_VERIFYCERT=false
+DB_NAME=jts
