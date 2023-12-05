@@ -58,3 +58,10 @@ CREATE TABLE IF NOT EXISTS job_status_change (
     job_status_change_old INT NOT NULL,
     job_status_change_new INT NOT NULL
 );
+
+-- changeset arizzi:10
+ALTER TABLE jts.job_status_change MODIFY COLUMN change_timestamp timestamp DEFAULT NOW() NULL;
+
+-- changeset arizzi:11
+TRUNCATE TABLE jts.job_status_change;
+ALTER TABLE jts.job_status_change MODIFY COLUMN change_timestamp timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL;
