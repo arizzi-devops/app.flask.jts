@@ -65,3 +65,6 @@ ALTER TABLE jts.job_status_change MODIFY COLUMN change_timestamp timestamp DEFAU
 -- changeset arizzi:11
 TRUNCATE TABLE jts.job_status_change;
 ALTER TABLE jts.job_status_change MODIFY COLUMN change_timestamp timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL;
+
+-- changeset arizzi:12
+ALTER TABLE jts.job DROP COLUMN status_id;
