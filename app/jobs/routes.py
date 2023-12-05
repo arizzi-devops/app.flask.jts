@@ -67,8 +67,8 @@ def edit_status(job_id):
     # Create a JobStatusChange record
     job_status_change = JobStatusChange(
         job_id=job.id,
-        old_status_id=old_status_id,
-        new_status_id=new_status_id
+        job_status_change_old=old_status_id,
+        job_status_change_new=new_status_id
     )
 
     # Update the job status
