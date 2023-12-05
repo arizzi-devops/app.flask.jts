@@ -40,4 +40,5 @@ services:
     volumes:
       - ./ddl/mysql:/liquibase/ddl/mysql:ro
       - ./lib/drivers/mariadb-java-client-1.8.0.jar:/liquibase/mysql-connector-java.jar:ro
-    command: update
+    command: update --log-level=SEVERE
+    # command: release-locks
