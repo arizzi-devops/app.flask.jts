@@ -24,6 +24,7 @@ def add():
             url = request.form["url"],
             salary_expectation = request.form["salary_expectation"],
             location = request.form["location"],
+            is_archived = request.form["is_archived"],
             status_id = 0,
             user_id = current_user.id
         )
@@ -45,6 +46,10 @@ def edit(job_id):
         job.url = request.form['url']
         job.salary_expectation = request.form['salary_expectation']
         job.location = request.form['location']
+        if "is_archived" in request.form and request.form['is_archived'] == 'on':
+            job.is_archived = 1
+        else:
+            job.is_archived = 0
         db.session.commit()
         flash('job updated successfully.', 'success')
         return redirect(url_for('jobs.index'))
