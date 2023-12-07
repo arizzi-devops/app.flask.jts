@@ -10,8 +10,7 @@ statuses = ["New", "Applied", "H.R.", "Tech", "Finished"]
 @bp.route('/')
 @login_required
 def index():
-    jobs = Job.query.filter_by(user_id=current_user.id).all()
-    print(len(jobs))
+    jobs = Job.get_jobs_with_latest_update(current_user.id)
     return render_template('jobs/kanban.html', jobs=jobs, user=current_user, statuses=statuses)
 
 
