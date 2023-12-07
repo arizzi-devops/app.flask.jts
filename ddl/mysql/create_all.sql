@@ -49,3 +49,18 @@ ALTER TABLE job
 -- changeset arizzi:8
 ALTER TABLE job
     ADD column location INT DEFAULT 0 NOT NULL;
+
+-- changeset arizzi:9
+CREATE TABLE IF NOT EXISTS job_status_change (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    job_id INT NOT NULL,
+    change_timestamp TIMESTAMP NULL,
+    job_status_change_old INT NOT NULL,
+    job_status_change_new INT NOT NULL
+);
+
+-- changeset arizzi:10
+ALTER TABLE jts.job_status_change MODIFY COLUMN change_timestamp timestamp DEFAULT NOW() NULL;
+
+-- changeset arizzi:11
+ALTER TABLE job ADD COLUMN is_archived BOOLEAN DEFAULT false;

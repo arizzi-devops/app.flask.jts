@@ -12,7 +12,7 @@ services:
       - ./app:/app
 
   db:
-    image: mysql:5.7
+    image: mysql:8.0.34
     env_file: .env
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD_ADM:-password}
@@ -39,5 +39,6 @@ services:
     env_file: .env
     volumes:
       - ./ddl/mysql:/liquibase/ddl/mysql:ro
-      - ./lib/drivers/mysql-connector-java-5.1.46.jar:/liquibase/mysql-connector-java.jar:ro
+      - ./lib/drivers/mariadb-java-client-1.8.0.jar:/liquibase/mysql-connector-java.jar:ro
     command: update
+    # command: release-locks
