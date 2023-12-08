@@ -26,6 +26,7 @@ class Job(db.Model):
             Job.status_id,
             Job.name,
             Job.company,
+            Job.is_archived,
             subquery.c.max_change_timestamp.label('latest_update')
         ).outerjoin(subquery, Job.id == subquery.c.job_id).filter(Job.user_id == user_id)
 
